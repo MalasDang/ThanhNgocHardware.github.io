@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPS Tracker</title>
+</head>
+<body>
+    <h2>Nhấp vào để lấy vị trí</h2>
+    <button onclick="getLocation()">Lấy vị trí</button>
+    <p id="location"></p>
+
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                document.getElementById("location").innerHTML = "Trình duyệt không hỗ trợ GPS.";
+            }
+        }
+
+        function showPosition(position) {
+            let lat = position.coords.latitude;
+            let lon = position.coords.longitude;
+            let mapLink = `https://www.google.com/maps?q=${lat},${lon}`;
+            document.getElementById("location").innerHTML = `<a href="${mapLink}" target="_blank">Xem vị trí trên bản đồ</a>`;
+        }
+
+        function showError(error) {
+            document.getElementById("location").innerHTML = "Không thể lấy vị trí.";
+        }
+    </script>
+</body>
+</html>
